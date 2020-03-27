@@ -1,0 +1,29 @@
+.nav{
+    display: flex;
+    height: 60px;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    padding: 0.2%;
+}
+
+.nav > a, nav button{
+    margin: 0 25px;
+}
+
+.logo {
+    height:60px;
+}
+
+.pill{
+    background-color: #696969;
+    border-radius: 20px;
+    padding: 5px 15px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    border: none;
+    /* height: 30px; */
+}
