@@ -12,7 +12,6 @@ const Search = ({ query, setQuery }) => {
 
         </div>
     );
-
 }
 
 

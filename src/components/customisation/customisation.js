@@ -29,7 +29,7 @@ const Customisation = ({isOpen}) =>{
                 </select>
                 <textarea className="directions" rows="6" name="directions" placeholder="Add extra directions" value={inputs.directions} onChange={handleInput}></textarea>
             </div>
-            <button onClick={handleSubmit} className="reviewbtn">Submit</button>
+            <button className="reviewbtn">Submit</button>
         </div>
     );
 }

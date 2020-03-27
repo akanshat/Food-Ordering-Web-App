@@ -1,22 +1,74 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './login.css';
+import React, { useState } from 'react'
+import { Link, Redirect } from 'react-router-dom'
+import { useAuth } from '../../context/auth.js'
+import config from '../../config.js'
+import './login.css'
+
 const Login = () => {
-    return (
-        <div className="overlay">
-            <div className="form-container">
-                    <>
-                        <input className="text-input" type="email" name="email" placeholder="Email" />
+  const [inputs, setInputs] = useState({ email: '', password: '' })
 
-                        <input className="text-input" type="password" name="password" placeholder="Password"  />
+  const [loading, setLoading] = useState(false)
 
-                        <button className="submit" type="submit">Login</button>
-                        <p>Don't have an account yet? <Link to='/register'>Register</Link></p>
-                    </>
+  const { backendURL } = config
+  const { token, setToken } = useAuth()
 
-            </div>
-        </div>
-    );
+  if (token) return <Redirect to='/home'/>
+
+  const handleSubmit = async () => {
+    setLoading(true)
+    const { token: fetchToken } = await fetch(`${backendURL}/api/login`, {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(inputs)
+    }).then(response => response.json())
+    setLoading(false)
+    localStorage.setItem('token', fetchToken)
+    setToken(fetchToken)
+  }
+
+  const handleInput = event => {
+    setInputs({
+      ...inputs,
+      [event.target.name]: event.target.value
+    })
+  }
+
+  return (
+    <div className='overlay'>
+      <div className='form-container'>
+        {loading ? (
+          <h1>Loading...</h1>
+        ) : (
+          <>
+            <input
+              className='text-input'
+              type='email'
+              name='email'
+              placeholder='Email'
+              value={inputs.email}
+              onChange={handleInput}
+            />
+
+            <input
+              className='text-input'
+              type='password'
+              name='password'
+              placeholder='Password'
+              value={inputs.password}
+              onChange={handleInput}
+            />
+
+            <button onClick={handleSubmit} className='submit' type='submit'>
+              Login
+            </button>
+            <p>
+              Don't have an account yet? <Link to='/register'>Register</Link>
+            </p>
+          </>
+        )}
+      </div>
+    </div>
+  )
 }
 
-export default Login;
+export default Login

@@ -1,13 +1,32 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import Search from '../search/search';
 import MenuCard from '../menucard/menucard';
+import './home.css';
+import config from '../../config.js';
 
 const Home = () => {
+  const [query, setQuery] = useState("");
+  const [menu, setMenu] =useState([]);
+
+  useEffect(()=> {
+    const {backendURL} = config;
+    fetch(`${backendURL}/api/search`, {
+      method: 'post',
+      headers : {'Content-Type':'application/json'},
+      body: JSON.stringify({query})
+    })
+    .then(response => response.json())
+    .then(result => setMenu(result.results));
+  },[query]);
+
+
+  const menuCards = menu.map(item => <MenuCard menu={menu} key={item._id}/>);
+
   return (
     <>
-      <Search />
-      <div>
-        <MenuCard/>
+      <Search query={query} setQuery={setQuery} />
+      <div className='cards'>
+        {menuCards}
       </div>
     </>
   )
