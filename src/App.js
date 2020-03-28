@@ -52,15 +52,16 @@ function App () {
     }
   }, [token])
 
-  const logMeout = () => {
+  const logMeOut = () => {
     localStorage.setItem('token', '')
     setToken("");
   }
 
   return (
-    <AuthContext.Provider value={{token, setToken, logMeout, user}}>
+    <AuthContext.Provider value={{token, setToken, logMeOut, user}}>
     <Router>
-      <Navbar />
+      <div className='App'>
+      <Navbar name={user?.name} />
       <Switch>
         <Route exact path="/">
           <Redirect to="/login" />
@@ -81,6 +82,7 @@ function App () {
           <h1>404</h1>
         </Route>
       </Switch>
+      </div>
     </Router>
     </AuthContext.Provider>
   );

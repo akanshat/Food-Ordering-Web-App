@@ -29,17 +29,18 @@ const Register = () => {
     setInputs({
       ...inputs,
       [event.target.name]: event.target.value
-    })
+    });
   }
 
-  if (token) return <Redirect to='/home' />
+  if (token) 
+    return <Redirect to='/home' />
 
   return (
     <div className='overlay'>
       <div className='form-container'>
-        {loading ? (
+        {loading ? 
           <h1>Loading...</h1>
-        ) : (
+         : 
           <>
             {message && <p>{message}</p>}
             <input
@@ -76,7 +77,7 @@ const Register = () => {
               Already have an account? <Link to='/login'>Login</Link>
             </p>
           </>
-        )}
+        }
       </div>
     </div>
   )

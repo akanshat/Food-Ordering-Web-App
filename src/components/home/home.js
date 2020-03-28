@@ -29,7 +29,7 @@ const Home = () => {
         {menuCards}
       </div>
     </>
-  )
+  );
 }
 
 export default Home;

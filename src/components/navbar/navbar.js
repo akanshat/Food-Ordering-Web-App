@@ -1,19 +1,26 @@
-import React from 'react';
-import logo from '../../assets/logo.png';
-import {Link} from 'react-router-dom';
-import './navbar.css';
+import React from 'react'
+import logo from '../../assets/logo.png'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../context/auth';
+import './navbar.css'
 
 const Navbar = () => {
-    return(
-        <nav className='nav'>
-            <Link to='/home'>
-                <img className='logo' src={logo} alt='logo'/>
-            </Link>
-            <Link to='/login'>
-                <span className='pill'>Login</span>
-            </Link>
-        </nav>
-    );
+  const { token, logMeOut } = useAuth();
+
+  return (
+    <nav className='nav'>
+      <Link to='/home'>
+        <img className='logo' src={logo} alt='logo' />
+      </Link>
+      {token ? 
+        <button className='pill' onClick={logMeOut}>LOG OUT</button>
+       : 
+        <Link to='/login'>
+          <span className='pill'>Login</span>
+        </Link>
+      }
+    </nav>
+  );
 }
 
-export default Navbar;
+export default Navbar

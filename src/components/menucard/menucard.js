@@ -3,8 +3,6 @@ import Customisation from '../customisation/customisation'
 import './menucard.css'
 
 
-
-
 const MenuCard = ({menu}) => {
 
   const [isOpen, setIsOpen] =  useState(false);
