@@ -32,18 +32,6 @@ function App () {
     }
   }, [token])
 
-  useEffect(() => {
-    if (token) {
-      const { backendURL } = config
-      fetch(`${backendURL}/api/user`, {
-        headers: {
-          'authorization': token
-        }
-      })
-        .then(res => res.json())
-        .then(res => setUser(res.user))
-    }
-  }, [token])
 
   useEffect(() => {
     if (!token) {
@@ -73,7 +61,7 @@ function App () {
           <Register />
         </Route>
         <Route exact path='/home'>
-          <Home />
+          { token ? <Home /> : <Redirect to='/login/'/>}
         </Route>
         <Route exact path='/checkout'>
           <Checkout />

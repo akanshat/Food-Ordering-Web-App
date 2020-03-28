@@ -6,23 +6,27 @@ import './menucard.css'
 const MenuCard = ({menu}) => {
 
   const [isOpen, setIsOpen] =  useState(false);
-  
+  //const [itemid, setItemid] = 
   // const { name, imageUrl } = menu;
   
   return (
     <div className='menucard'>
+      <span>{menu.key}</span>
       <div className='image'>
       <img className='menuimage' alt='menuimage' src={menu.imageUrl} />
       </div>
       <div className='details'>
       <div className='menuname'>
         {menu.name}
-        <div>test name</div>
       </div>
+      <div className='price-btn'>
+        {menu.price.small}
+      
         <span className='addtocart'>
-          <Customisation isOpen={isOpen}/>
-          <button className="addtocard-btn" onClick={()=> setIsOpen(true)}>Add</button>
+          <Customisation isOpen={isOpen} menu={menu}/>
+          <button className="addtocard-btn" onClick={()=> setIsOpen(true)}>Add to cart</button>
         </span>
+        </div>
       </div>
     </div>
   )

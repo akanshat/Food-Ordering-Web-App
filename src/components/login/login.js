@@ -36,9 +36,9 @@ const Login = () => {
   return (
     <div className='overlay'>
       <div className='form-container'>
-        {loading ? (
+        {loading ?
           <h1>Loading...</h1>
-        ) : (
+         : 
           <>
             <input
               className='text-input'
@@ -65,7 +65,7 @@ const Login = () => {
               Don't have an account yet? <Link to='/register'>Register</Link>
             </p>
           </>
-        )}
+        }
       </div>
     </div>
   )

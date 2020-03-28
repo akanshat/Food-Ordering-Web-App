@@ -20,7 +20,7 @@ const Home = () => {
   },[query]);
 
 
-  const menuCards = menu.map(item => <MenuCard menu={menu} key={item._id}/>);
+  const menuCards = menu.map(item => <MenuCard menu={item} key={item._id}/>);
 
   return (
     <>
