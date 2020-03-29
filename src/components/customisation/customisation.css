@@ -1,5 +1,5 @@
 .custom-overlay {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,22 +11,22 @@
   height: 100vh;
   color: white;
 }
-
-.container{
+.label{
   display: flex;
-  justify-content: space-evenly; 
+  flex-direction: row;
+  justify-content: space-evenly;
+
+}
+
+.price{
+  margin-left: 20px;
 }
 
 .radio{
     margin: 10px 10px 10px 10px;
 }
 
-.directions {
-  
-  padding: 25px;
-  border-radius: 10px;
-  background-color: white;
-}
+
 
 .submit-btn {
     margin: 10px 10px 10px 10px;

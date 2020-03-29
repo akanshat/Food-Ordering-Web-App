@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import './customisation.css'
 import config from '../../config';
 
 const Customisation = ({ isOpen, setIsOpen, menu }) => {
   const [inputs, setInputs] = useState({
     name : menu.name,
-    priceSelected: menu.price.small,
-    directions: ''
+    priceSelected: menu.price.small
   })
   const [loading, setLoading] = useState(false);
-  const { backendURL } = config
+  const { backendURL } = config;
 
 
   const handleSubmit = async () => {
@@ -29,49 +29,53 @@ const Customisation = ({ isOpen, setIsOpen, menu }) => {
   const handleInput = (event) => {
     setInputs({
       ...inputs,
-      [event.target.name]: event.target.value
-    })
+      [event.target.name]: event.target.value,
+    });
   }
 
   if (!isOpen) return null
   return (
     <div className='custom-overlay'>
-      {loading ? (
+      {loading ? 
         <h1>Loading..</h1>
-      ) : (
+       : 
         <>
           <div className='choices'>
-            <form className='container' value={inputs.price} onChange={handleInput}>
+            {/* <form className='container' >
               <div className='radio'>
-                <label>
-                  <input type='radio' value='option1'/>
+                <label className='label'>
+                  <input type='radio'  checked={inputs.price} className='qty' onClick={handleInput}/>
                   Small
+                  <span className='price'>{menu.price.small}</span>
                 </label>
-                <span>{menu.price.small}</span>
               </div>
               <div className='radio'>
-                <label>
-                  <input type='radio' value='option2'/>
+                <label className='label'>
+                  <input type='radio' checked={inputs.price} className='qty' onClick={handleInput}/>
                   Regular
+                  <span className='price'>{menu.price.regular}</span>
                 </label>
-                <span>{menu.price.regular}</span>
               </div>
-            </form>
-
-            <textarea
-              className='directions'
-              rows='1'
-              name='directions'
-              placeholder='Add extra directions'
-              value={inputs.directions}
-              onChange={handleInput}
-            ></textarea>
+            </form> */}
+            <RadioGroup name='priceSelected'value={inputs.priceSelected} onChange = {handleInput} horizonatal>
+              <RadioButton value='small'>
+                    Small {menu.price.small}
+              </RadioButton>
+              <RadioButton value='Regular'>
+                Regular {menu.price.regular}
+              </RadioButton>
+            </RadioGroup>
           </div>
+         <span>
           <button className='submit-btn' onClick={handleSubmit}>
-            Submit
+            Add
           </button>
+          <button className='submit-btn' onClick={() => setIsOpen(false)}>
+            Cancel
+          </button>
+          </span>
         </>
-      )}
+      }
     </div>
   )
 }
