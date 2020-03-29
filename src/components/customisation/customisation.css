@@ -12,13 +12,18 @@
   color: white;
 }
 
+.container{
+  display: flex;
+  justify-content: space-evenly; 
+}
+
 .radio{
     margin: 10px 10px 10px 10px;
 }
 
 .directions {
   
-  padding: 55px;
+  padding: 25px;
   border-radius: 10px;
   background-color: white;
 }

@@ -7,7 +7,10 @@ const MenuCard = ({menu}) => {
 
   const [isOpen, setIsOpen] =  useState(false);
   //const [itemid, setItemid] = 
-  // const { name, imageUrl } = menu;
+
+  // const modifyCart = (direction) => {
+
+  // }
   
   return (
     <div className='menucard'>
@@ -23,7 +26,7 @@ const MenuCard = ({menu}) => {
         {menu.price.small}
       
         <span className='addtocart'>
-          <Customisation isOpen={isOpen} menu={menu}/>
+          <Customisation isOpen={isOpen} setIsOpen={setIsOpen} menu={menu}/>
           <button className="addtocard-btn" onClick={()=> setIsOpen(true)}>Add to cart</button>
         </span>
         </div>
