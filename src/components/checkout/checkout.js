@@ -8,14 +8,6 @@ const Checkout = ({cart}) =>{
 
     const [items, setItems] = useState([]);
 
-    // useEffect(() =>{
-    //     const { backendURL } = config;
-    //     fetch( `${backendURL}/api/cart`, {
-    //         method: 'get',
-
-    //     } )
-    // })
-
     const itemCards = items.cart( item => <ItemCard name={item.name} price={item.price} />)
 
 

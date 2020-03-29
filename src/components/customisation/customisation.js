@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { RadioGroup, RadioButton } from 'react-radio-buttons';
+import React, { useState } from 'react'
+import { RadioGroup, RadioButton } from 'react-radio-buttons'
 import './customisation.css'
-import config from '../../config';
+import config from '../../config'
 
 const Customisation = ({ isOpen, setIsOpen, menu }) => {
   const [inputs, setInputs] = useState({
-    name : menu.name,
+    name: menu.name,
     priceSelected: menu.price.small
   })
-  const [loading, setLoading] = useState(false);
-  const { backendURL } = config;
-
+  const [loading, setLoading] = useState(false)
+  const { backendURL } = config
 
   const handleSubmit = async () => {
     setLoading(true)
@@ -21,24 +20,25 @@ const Customisation = ({ isOpen, setIsOpen, menu }) => {
         ...inputs
       })
     }).then(response => response.json())
-    setLoading(false);
-    setIsOpen(false);
+    setLoading(false)
+    setIsOpen(false)
   }
 
-
   const handleInput = (event) => {
+    console.log(event);
+    const {name, value} = event
     setInputs({
       ...inputs,
-      [event.target.name]: event.target.value,
-    });
+      [name]: value
+    })
   }
 
   if (!isOpen) return null
   return (
     <div className='custom-overlay'>
-      {loading ? 
+      {loading ? (
         <h1>Loading..</h1>
-       : 
+      ) : (
         <>
           <div className='choices'>
             {/* <form className='container' >
@@ -57,25 +57,27 @@ const Customisation = ({ isOpen, setIsOpen, menu }) => {
                 </label>
               </div>
             </form> */}
-            <RadioGroup name='priceSelected'value={inputs.priceSelected} onChange = {handleInput} horizonatal>
-              <RadioButton value='small'>
-                    Small {menu.price.small}
-              </RadioButton>
-              <RadioButton value='Regular'>
+            <RadioGroup
+              name='priceSelected'
+              value={inputs.priceSelected}
+              onChange={ v=> setInputs(i => {return {...i, priceSelected: v}})}
+            >
+              <RadioButton value={menu.price.small}>Small {menu.price.small}</RadioButton>
+              <RadioButton value={menu.price.regular}>
                 Regular {menu.price.regular}
               </RadioButton>
             </RadioGroup>
           </div>
-         <span>
-          <button className='submit-btn' onClick={handleSubmit}>
-            Add
-          </button>
-          <button className='submit-btn' onClick={() => setIsOpen(false)}>
-            Cancel
-          </button>
+          <span>
+            <button className='submit-btn' onClick={handleSubmit}>
+              Add
+            </button>
+            <button className='submit-btn' onClick={() => setIsOpen(false)}>
+              Cancel
+            </button>
           </span>
         </>
-      }
+      )}
     </div>
   )
 }
