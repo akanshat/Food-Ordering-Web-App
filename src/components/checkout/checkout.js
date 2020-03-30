@@ -1,21 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import ItemCard from '../cartitemcard/itemcard';
-import config from '../../config.js';
+import React, { useState } from 'react'
+import { ReactComponent as CartIcon } from '../../assets/cart.svg'
+import { useCart } from '../../context/cart'
+import './checkout.css'
 
+const Checkout = () => {
+  const { cart, setCart } = useCart()
+  let total = 0
+  const items = cart.map((item, index) => {
+    total = total + Number(item.priceSelected)
+    return (
+      <li>
+        <span className='cartitemname'>{item.name}</span>
+        <span className='cartitemprice'>&#8377;{item.priceSelected}</span>
+        <span className='cross' onClick={() => removeFromCart(index)}>
+          x
+        </span>
+      </li>
+    )
+  })
 
+  const removeFromCart = index => {
+    setCart(cart.slice(0, index).concat(cart.slice(index + 1)))
+  }
 
-const Checkout = ({cart}) =>{
+  const [open, setOpen] = useState(false)
 
-    const [items, setItems] = useState([]);
-
-    const itemCards = items.cart( item => <ItemCard name={item.name} price={item.price} />)
-
-
-    return(
-        <div className='cartitem-cards'>
-            {itemCards}
-        </div>
-    );
+  return (
+    <div className='carticon'>
+      <button onClick={() => setOpen(o => !o)}>
+        <CartIcon color={cart.length > 0 ? `#dc2f29` : `black`} height='40px' />
+      </button>
+      {open && (
+        <ul className='cartlist'>
+          {items.length ? (
+            <>
+              <li className='naya-li'>
+                <span className='cartitemname'>Total :</span>
+                <span className='cartitemprice'>&#8377;{total}</span>
+                <span className='cross'></span>
+              </li>
+              {items}
+            </>
+          ) : (
+            <span>No items selected</span>
+          )}
+        </ul>
+      )}
+    </div>
+  )
 }
 
-export default Checkout;
+export default Checkout

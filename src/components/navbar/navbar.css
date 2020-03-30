@@ -16,6 +16,11 @@
     height:72px;
 }
 
+.nav-right{
+    display: flex;
+    align-items: center;
+}
+
 .pill{
     background-color: #696969;
     border-radius: 20px;

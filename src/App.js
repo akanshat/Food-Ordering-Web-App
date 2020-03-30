@@ -11,6 +11,7 @@ import {
   Redirect
 } from 'react-router-dom'
 import { AuthContext } from './context/auth.js'
+import { CartContext } from './context/cart.js'
 import config from './config.js'
 
 import './App.css'
@@ -18,20 +19,20 @@ import './App.css'
 function App () {
   const [token, setToken] = useState()
   const [user, setUser] = useState()
+  const [cart, setCart] = useState([])
 
   useEffect(() => {
     if (token) {
-      const { backendURL } = config;
+      const { backendURL } = config
       fetch(`${backendURL}/api/user`, {
-        headers: { 
-          'authorization': token
+        headers: {
+          authorization: token
         }
       })
         .then(res => res.json())
         .then(res => setUser(res.user))
     }
   }, [token])
-
 
   useEffect(() => {
     if (!token) {
@@ -42,38 +43,41 @@ function App () {
 
   const logMeOut = () => {
     localStorage.setItem('token', '')
-    setToken("");
+    setToken('')
+    setCart([])
   }
 
   return (
-    <AuthContext.Provider value={{token, setToken, logMeOut, user}}>
-    <Router>
-      <div className='App'>
-      <Navbar name={user?.name} />
-      <Switch>
-        <Route exact path="/">
-          <Redirect to="/login" />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path='/register'>
-          <Register />
-        </Route>
-        <Route exact path='/home'>
-          { token ? <Home /> : <Redirect to='/login/'/>}
-        </Route>
-        <Route exact path='/checkout'>
-          <Checkout />
-        </Route>
-        <Route path='*'>
-          <h1>404</h1>
-        </Route>
-      </Switch>
-      </div>
-    </Router>
+    <AuthContext.Provider value={{ token, setToken, logMeOut, user }}>
+      <CartContext.Provider value={{ cart, setCart }}>
+        <Router>
+          <div className='App'>
+            <Navbar name={user?.name} />
+            <Switch>
+              <Route exact path='/'>
+                <Redirect to='/login' />
+              </Route>
+              <Route exact path='/login'>
+                <Login />
+              </Route>
+              <Route exact path='/register'>
+                <Register />
+              </Route>
+              <Route exact path='/home'>
+                {token ? <Home /> : <Redirect to='/login/' />}
+              </Route>
+              <Route exact path='/checkout'>
+                <Checkout />
+              </Route>
+              <Route path='*'>
+                <h1>404</h1>
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </CartContext.Provider>
     </AuthContext.Provider>
-  );
+  )
 }
 
 export default App

@@ -8,22 +8,37 @@ const Login = () => {
   const [inputs, setInputs] = useState({ email: '', password: '' })
 
   const [loading, setLoading] = useState(false)
-
+  const [error, setError] = useState()
   const { backendURL } = config
   const { token, setToken } = useAuth()
 
-  if (token) return <Redirect to='/home'/>
+  if (token) return <Redirect to='/home' />
 
-  const handleSubmit = async () => {
+  const handleSubmit = (event) => {
+    event.preventDefault()
     setLoading(true)
-    const { token: fetchToken } = await fetch(`${backendURL}/api/login`, {
+    fetch(`${backendURL}/api/login`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(inputs)
-    }).then(response => response.json())
-    setLoading(false)
-    localStorage.setItem('token', fetchToken)
-    setToken(fetchToken)
+    })
+      .then(response => {
+        if (response.status !== 200) throw response
+        return response.json()
+      })
+      .then(res => {
+        const { token: fetchToken } = res
+        localStorage.setItem('token', fetchToken)
+        setToken(fetchToken)
+        setLoading(false)
+      })
+      .catch(error => {
+        error.json()
+        .then(({ error }) => {
+          setError(error)
+          setLoading(false)
+        })
+      })
   }
 
   const handleInput = event => {
@@ -35,11 +50,12 @@ const Login = () => {
 
   return (
     <div className='overlay'>
-      <div className='form-container'>
-        {loading ?
+      <form className='form-container' onSubmit={handleSubmit} >
+        {loading ? (
           <h1>Loading...</h1>
-         : 
+        ) : (
           <>
+            {error && <span className="error-span">{error}</span>}
             <input
               className='text-input'
               type='email'
@@ -47,6 +63,7 @@ const Login = () => {
               placeholder='Email'
               value={inputs.email}
               onChange={handleInput}
+              required
             />
 
             <input
@@ -56,17 +73,18 @@ const Login = () => {
               placeholder='Password'
               value={inputs.password}
               onChange={handleInput}
+              required
             />
 
-            <button onClick={handleSubmit} className='submit' type='submit'>
+            <button className='submit' type='submit'>
               Login
             </button>
             <p>
               Don't have an account yet? <Link to='/register'>Register</Link>
             </p>
           </>
-        }
-      </div>
+        )}
+      </form>
     </div>
   )
 }

@@ -1,0 +1,53 @@
+.carticon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    
+}
+.carticon > button{
+    border: none;
+    background: none;
+}
+.cartlist{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    position: absolute;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 40px;
+    transform: translateY(calc(50% + 60px)) translateX(calc(-50% + 30px));
+    background: #f2f2f2;
+    border-radius: 10px;
+    list-style: none;
+}
+
+
+
+.cartlist li {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20vw;
+}
+
+.naya-li{
+    border-top: solid 3px black;
+    padding-top: 10px;
+}
+
+.cartitemname{
+    width: 70%;
+}
+
+.cartitemprice{
+    width: 20%;
+}
+
+.cross{
+    color: grey;
+    width: 10%;
+    cursor: pointer;
+}
