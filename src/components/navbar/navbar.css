@@ -1,11 +1,10 @@
 .nav{
     display: flex;
-    height: 70px;
+    height: 10vh;
     width: 100vw;
     justify-content: space-between;
     align-items: center;
     background-color: rgb(255, 255, 255);
-    padding: 0.2%;
 }
 
 .nav > a, nav button{
@@ -13,22 +12,26 @@
 }
 
 .logo {
-    height:72px;
+    height: 20vh
 }
 
 .nav-right{
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    outline: none;
 }
 
 .pill{
     background-color: #696969;
     border-radius: 20px;
-    padding: 5px 15px;
+    height: 35px;
+    width: 120px;
     color: white;
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 0.1em;
     border: none;
-    /* height: 30px; */
+    margin-right: 40px;
+    text-decoration: none;
 }

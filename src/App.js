@@ -1,83 +1,84 @@
-import React, { useState, useEffect } from 'react'
-import Login from './components/login/login'
-import Register from './components/register/register'
-import Navbar from './components/navbar/navbar'
-import Home from './components/home/home'
-import Checkout from './components/checkout/checkout'
+import React, { useState, useEffect } from "react";
+import Navbar from "./components/navbar/navbar";
+import Home from "./components/home/home";
+import Checkout from "./components/checkout/checkout";
+import Homepage from "./components/landingpage/homepage";
+import Register from "./components/landingpage/register";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
-} from 'react-router-dom'
-import { AuthContext } from './context/auth.js'
-import { CartContext } from './context/cart.js'
-import config from './config.js'
+  Redirect,
+} from "react-router-dom";
+import { AuthContext } from "./context/auth.js";
+import { CartContext } from "./context/cart.js";
+import config from "./config.js";
 
-import './App.css'
+import "./App.css";
 
-function App () {
-  const [token, setToken] = useState()
-  const [user, setUser] = useState()
-  const [cart, setCart] = useState([])
+function App() {
+  const [token, setToken] = useState();
+  const [user, setUser] = useState();
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     if (token) {
-      const { backendURL } = config
+      const { backendURL } = config;
       fetch(`${backendURL}/api/user`, {
         headers: {
-          authorization: token
-        }
+          authorization: token,
+        },
       })
-        .then(res => res.json())
-        .then(res => setUser(res.user))
+        .then((res) => res.json())
+        .then((res) => setUser(res.user));
     }
-  }, [token])
+  }, [token]);
 
   useEffect(() => {
     if (!token) {
-      const tk = localStorage.getItem('token')
-      if (tk) setToken(tk)
+      const tk = localStorage.getItem("token");
+      if (tk) setToken(tk);
     }
-  }, [token])
+  }, [token]);
 
   const logMeOut = () => {
-    localStorage.setItem('token', '')
-    setToken('')
-    setCart([])
-  }
+    localStorage.setItem("token", "");
+    setToken("");
+    setCart([]);
+  };
 
   return (
     <AuthContext.Provider value={{ token, setToken, logMeOut, user }}>
       <CartContext.Provider value={{ cart, setCart }}>
         <Router>
-          <div className='App'>
-            <Navbar name={user?.name} />
-            <Switch>
-              <Route exact path='/'>
-                <Redirect to='/login' />
+          <Switch>
+            <div className="App">
+              {token ? <Navbar name={user?.name} /> : <Redirect to="/login" />}
+              <Route path="/">
+                <Redirect to="/login" />
               </Route>
-              <Route exact path='/login'>
-                <Login />
+              <Route path="/login">
+                <Homepage />
               </Route>
-              <Route exact path='/register'>
+              <Route exact path="/register">
                 <Register />
               </Route>
-              <Route exact path='/home'>
-                {token ? <Home /> : <Redirect to='/login/' />}
+              <Route exact path="/home">
+                {token ? <Home /> : <Redirect to="/login" />}
               </Route>
-              <Route exact path='/checkout'>
+              <Route exact path="/checkout">
                 <Checkout />
               </Route>
-              <Route path='*'>
+              <Route path="*">
                 <h1>404</h1>
               </Route>
-            </Switch>
-          </div>
+            </div>
+            )
+          </Switch>
         </Router>
       </CartContext.Provider>
     </AuthContext.Provider>
-  )
+  );
 }
 
-export default App
+export default App;

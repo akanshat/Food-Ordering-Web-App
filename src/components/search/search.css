@@ -11,6 +11,8 @@
 }
 
 .searchbox{
+    outline: none;
+    text-align: center;
     width: 40%;
     padding: 15px;
     border: none;

@@ -28,7 +28,7 @@ const Checkout = () => {
   return (
     <div className='carticon'>
       <button onClick={() => setOpen(o => !o)}>
-        <CartIcon color={cart.length > 0 ? `#dc2f29` : `black`} height='40px' />
+        <CartIcon color={cart.length > 0 ? `#5fa371` : `black`} height='40px' />
       </button>
       {open && (
         <ul className='cartlist'>
