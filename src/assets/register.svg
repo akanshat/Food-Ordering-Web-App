@@ -1,4 +1,4 @@
-<svg id="FilledOutline" height="512" viewBox="0 0 512 512" width="200"
+<svg id="FilledOutline" height="512" viewBox="0 0 512 512" width="12vw"
     xmlns="http://www.w3.org/2000/svg">
     <rect fill="#e3e4e2" height="392" rx="24" width="368" x="56" y="24"/>
     <path d="m400 24h-320a24 24 0 0 0 -24 24v40h368v-40a24 24 0 0 0 -24-24z" fill="#0093b9"/>

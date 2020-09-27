@@ -1,6 +1,9 @@
 .homepage-container {
   overflow: hidden;
-  background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
+  background-image: url("../../assets/homebg.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+   /* linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%); */
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -9,6 +12,7 @@
 }
 
 .homepage-overlay {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   border-radius: 15px;
   background-color: white;
   height: 50vh;
@@ -26,7 +30,7 @@
 
 .input-form {
   width: 55%;
-  height: 60%;
+  height: 80%;
   border-left: 1px dotted gray;
 }
 
@@ -47,17 +51,17 @@
   margin-bottom: 25px;
   text-align: center;
   outline: none;
-  width: 60%;
-  height: 35px;
+  width: 50%;
+  height: 40px;
 }
 
 .submit {
   outline: none;
   background-color: white;
-  margin-top: 15px;
+  margin-top: 10px;
   border: 1px solid black;
-  width: 125px;
-  height: 35px;
+  width: 120px;
+  height: 40px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 700;
