@@ -23,15 +23,23 @@
 }
 
 .pill{
-    background-color: #696969;
+    background-color: #ffffff;
+    border: 1px solid black;
+    outline: none;
     border-radius: 20px;
     height: 35px;
     width: 120px;
-    color: white;
+    color: black;
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 0.1em;
-    border: none;
     margin-right: 40px;
     text-decoration: none;
+}
+
+.pill:hover{
+    background-color: #f0ba26;
+    color: white;
+    font-weight: 900;
+    border: none;
 }

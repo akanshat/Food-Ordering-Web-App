@@ -54,11 +54,11 @@ function App() {
           <Switch>
             <div className="App">
               {token ? <Navbar name={user?.name} /> : <Redirect to="/login" />}
-              <Route path="/">
-                <Redirect to="/login" />
-              </Route>
               <Route path="/login">
                 <Homepage />
+              </Route>
+              <Route path="/">
+                <Redirect to="/login" />
               </Route>
               <Route exact path="/register">
                 <Register />
@@ -68,9 +68,6 @@ function App() {
               </Route>
               <Route exact path="/checkout">
                 <Checkout />
-              </Route>
-              <Route path="*">
-                <h1>404</h1>
               </Route>
             </div>
             )
